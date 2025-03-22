@@ -1,0 +1,27 @@
+name: Run Telegram Bot for 6 Days
+
+on:
+  workflow_dispatch:  # تشغيل يدوي
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8640  # تشغيل لمدة 6 أيام
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt || true
+
+      - name: Run bot continuously
+        run: |
+          while true; do
+            python bot.py
+            sleep 10
+          done
